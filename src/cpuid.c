@@ -18,6 +18,58 @@
 # include <intrin.h>
 #endif
 
+#ifdef __aarch64__
+
+#include "config.h"
+
+#include "parasail/cpuid.h"
+
+int parasail_can_use_avx512vbmi()
+{
+    return 0;
+}
+
+int parasail_can_use_avx512bw()
+{
+    return 0;
+}
+
+int parasail_can_use_avx512f()
+{
+    return 0;
+}
+
+int parasail_can_use_avx2()
+{
+    return 0;
+}
+
+int parasail_can_use_sse41()
+{
+    return 0;
+}
+
+int parasail_can_use_sse2()
+{
+    return 0;
+}
+
+int parasail_can_use_altivec()
+{
+    return 0;
+}
+
+int parasail_can_use_neon()
+{
+#if HAVE_NEON
+    return 1;
+#else
+    return 0;
+#endif
+}
+
+#else
+
 static void run_cpuid(uint32_t eax, uint32_t ecx, uint32_t* abcd)
 {
 #if defined(_MSC_VER)
@@ -311,3 +363,4 @@ int parasail_can_use_neon()
     return 0;
 }
 
+#endif
